@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content">
+    <com.example.a37925.myapplication.ScalableLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="#FF0000"
+        android:layout_gravity="center"></com.example.a37925.myapplication.ScalableLayout>
+</FrameLayout>
