@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ViewConfiguration;
 import android.widget.LinearLayout;
 
 /**
@@ -18,7 +17,6 @@ public class ScalableLayout extends LinearLayout {
     public static final int STATUS_EXPAND = 1;
     public static final int STATUS_HIDE = 2;
     public static final int STATUS_SCROLL = 3;
-
     private int currentStatus = STATUS_COLLAPSE;
     private int lastX;
     private int lastY;
@@ -30,7 +28,7 @@ public class ScalableLayout extends LinearLayout {
     private int maxHeight = 1000;
     private int collapseHeight = 400;
     private int hideHeight = 80;
-    private static final int vacility = 5;
+    private static final int velocity = 5;
 
 
     private static final int AUTO_THRESHOLD = 50;
@@ -57,47 +55,7 @@ public class ScalableLayout extends LinearLayout {
 
     private void init(){
         setOrientation(LinearLayout.VERTICAL);
-
     }
-
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent event) {
-//        boolean intercepted = false;
-//        int x = (int) event.getX();
-//        int y = (int) event.getY();
-//
-//        switch (event.getAction()){
-//            case MotionEvent.ACTION_DOWN: {
-//                scrolling = false;
-//                lastXIntercept = x;
-//                lastYIntercept = y;
-//                lastX = x;
-//                lastY = y;
-//                intercepted = false;
-//                break;
-//            }
-//            case MotionEvent.ACTION_MOVE: {
-//                int deltaX = x - lastXIntercept;
-//                int deltaY = y - lastYIntercept;
-//                scrolling = true;
-//                if (Math.abs(deltaY)<Math.abs(deltaX)) {
-//                    intercepted = false;
-//                }
-//                break;
-//            }
-//            case MotionEvent.ACTION_UP: {
-//                if(scrolling) {
-//                    intercepted = true;
-//                }
-//                lastXIntercept = lastYIntercept = 0;
-//                break;
-//            }
-//            default:
-//                break;
-//        }
-//        return intercepted;
-//    }
-
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
@@ -265,7 +223,7 @@ public class ScalableLayout extends LinearLayout {
     private ObjectAnimator getExpandAnimator(){
         int start = getLayoutParams().height;
         int end = maxHeight;
-        int time = (end-start)/vacility;
+        int time = (end-start)/ velocity;
         ObjectAnimator animator =  ObjectAnimator.ofInt(this, "height", start, end).setDuration(time);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -295,7 +253,7 @@ public class ScalableLayout extends LinearLayout {
     private ObjectAnimator getCollapseAnimator(){
         int start = getLayoutParams().height;
         int end = collapseHeight;
-        int time = (start-end)/vacility;
+        int time = (start-end)/ velocity;
         ObjectAnimator animator =  ObjectAnimator.ofInt(this, "height", start, end).setDuration(time);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -325,7 +283,7 @@ public class ScalableLayout extends LinearLayout {
     private ObjectAnimator getShowAnimator(){
         int start = getScrollY();
         int end = 0;
-        int time = (end-start)/vacility;
+        int time = (end-start)/ velocity;
         ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", start, end).setDuration(time);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -355,7 +313,7 @@ public class ScalableLayout extends LinearLayout {
     private ObjectAnimator getHideAnimator(){
         int start = getScrollY();
         int end = -(collapseHeight-hideHeight);
-        int time = (start-end)/vacility;
+        int time = (start-end)/ velocity;
         ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", start, end).setDuration(time);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -407,7 +365,7 @@ public class ScalableLayout extends LinearLayout {
 
     private ObjectAnimator getHideToExpandAnimator(){
         lastOffset = 0;
-        ObjectAnimator hideToExpand = ObjectAnimator.ofInt(this, "hideToExpand", 0, maxHeight-hideHeight).setDuration((maxHeight-hideHeight)/vacility);
+        ObjectAnimator hideToExpand = ObjectAnimator.ofInt(this, "hideToExpand", 0, maxHeight-hideHeight).setDuration((maxHeight-hideHeight)/ velocity);
         hideToExpand.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -434,7 +392,7 @@ public class ScalableLayout extends LinearLayout {
 
     private ObjectAnimator getExpandToHideAnimator(){
         lastOffset = 0;
-        ObjectAnimator expandToHide = ObjectAnimator.ofInt(this, "expandToHide", 0, maxHeight-hideHeight).setDuration((maxHeight-hideHeight)/vacility);
+        ObjectAnimator expandToHide = ObjectAnimator.ofInt(this, "expandToHide", 0, maxHeight-hideHeight).setDuration((maxHeight-hideHeight)/ velocity);
         expandToHide.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
