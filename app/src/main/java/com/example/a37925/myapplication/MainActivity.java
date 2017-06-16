@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     String show = "show";
     TimeSlotSelectBehavior behavior;
     ScalableLayout layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         );
         layout.setOnStatusChangeListener(new ScalableLayout.OnStatusChangeListener() {
             @Override
-            public void onStatusChange(int oldStatus, int newStatus) {
+            public void onStatusChange(ScalableLayout view, int oldStatus, int newStatus) {
                 if(newStatus == ScalableLayout.STATUS_HIDE){
                     showButton.setText(show);
                 }else if(newStatus == ScalableLayout.STATUS_COLLAPSE || newStatus == ScalableLayout.STATUS_EXPAND){
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return 50;
+            return 100;
         }
 
         class Holder extends RecyclerView.ViewHolder {

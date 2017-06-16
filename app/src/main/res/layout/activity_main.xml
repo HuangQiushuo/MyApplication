@@ -138,7 +138,7 @@
 
     <com.example.a37925.myapplication.ScalableLayout
         android:layout_width="match_parent"
-        android:layout_height="400px"
+        android:layout_height="wrap_content"
         android:id="@+id/multibottom"
         android:layout_alignParentBottom="true"
         >
